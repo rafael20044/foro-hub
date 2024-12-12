@@ -1,5 +1,6 @@
 package com.forohub.forohub.domain.usuario.entity;
 
+import com.forohub.forohub.domain.usuario.dto.UsuarioCreate;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,4 +28,10 @@ public class Usuario {
 
     @Column(length = 500, nullable = true)
     private String clave;
+
+    public Usuario(UsuarioCreate usuarioCreate){
+        this.nombre = usuarioCreate.nombre();
+        this.correo = usuarioCreate.correo();
+        this.clave = usuarioCreate.clave();
+    }
 }
