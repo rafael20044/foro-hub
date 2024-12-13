@@ -35,6 +35,15 @@ public class UsuarioService implements IUsuarioServicio{
     }
 
     @Override
+    public Usuario findEntity(Long id) {
+        Optional<Usuario> optional = repository.findById(id);
+        if (optional.isPresent()) {
+            return optional.get();
+        }
+        throw new FindException("Usuario no encontrado");
+    }
+
+    @Override
     public Page<UsuarioBuscar> findAll(Pageable pageable) {
         return repository.findAll(pageable).map(UsuarioBuscar::new);
     }

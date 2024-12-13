@@ -4,5 +4,5 @@ public enum Estado {
     ACTIVO,
     INACTIVO,
     RESULTO,
-    PERDIENTE
+    PENDIENTE
 }
