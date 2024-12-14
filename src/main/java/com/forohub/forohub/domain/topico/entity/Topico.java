@@ -2,6 +2,7 @@ package com.forohub.forohub.domain.topico.entity;
 
 import com.forohub.forohub.domain.estado.Estado;
 import com.forohub.forohub.domain.topico.dto.TopicoCrear;
+import com.forohub.forohub.domain.topico.dto.TopicoEditar;
 import com.forohub.forohub.domain.usuario.entity.Usuario;
 import com.forohub.forohub.domain.usuario.repository.UsuarioRepository;
 import com.forohub.forohub.domain.usuario.service.UsuarioService;
@@ -55,6 +56,19 @@ public class Topico {
         this.fechaCreacion = crear.fechaCreacion();
         this.estado = crear.estado();
         this.idAutor = autor;
+    }
+
+    public void actualizar(TopicoEditar editar){
+        if (editar.titulo() != null && !editar.titulo().isEmpty()) {
+            this.titulo = editar.titulo();
+        }
+        if (editar.mensaje() != null && !editar.mensaje().isEmpty()) {
+            this.mensaje = editar.mensaje();
+        }
+    }
+
+    public void eliminar(){
+        this.estado = Estado.INACTIVO;
     }
 
     public Long getId() {
