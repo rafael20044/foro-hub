@@ -6,6 +6,7 @@ import com.forohub.forohub.domain.usuario.dto.UsuarioRespuesta;
 import com.forohub.forohub.domain.usuario.entity.Usuario;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public interface IUsuarioServicio {
 
@@ -16,4 +17,6 @@ public interface IUsuarioServicio {
     Usuario findEntity(Long id);
 
     Page<UsuarioBuscar> findAll(Pageable pageable);
+
+    UserDetails findByNombre(String nombre);
 }

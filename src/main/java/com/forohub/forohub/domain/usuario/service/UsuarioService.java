@@ -9,6 +9,7 @@ import com.forohub.forohub.infra.exception.FindException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -46,5 +47,10 @@ public class UsuarioService implements IUsuarioServicio{
     @Override
     public Page<UsuarioBuscar> findAll(Pageable pageable) {
         return repository.findAll(pageable).map(UsuarioBuscar::new);
+    }
+
+    @Override
+    public UserDetails findByNombre(String nombre) {
+        return repository.buscarPorNombre(nombre).orElseThrow(()-> new FindException("No encontrado"));
     }
 }
