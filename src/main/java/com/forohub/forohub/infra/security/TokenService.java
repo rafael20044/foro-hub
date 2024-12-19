@@ -35,26 +35,30 @@ public class TokenService {
         }
     }
 
-    public String getSubject(String token){
+    public String getSubject(String token) {
         if (token == null) {
-            throw new RuntimeException();
+            throw new RuntimeException("EL token no puede ser nulo");
         }
-        DecodedJWT verifier = null;
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret); // validando firma
-            verifier = JWT.require(algorithm)
+            DecodedJWT verifier = JWT.require(algorithm)
                     .withIssuer("ForoHub")
                     .build()
                     .verify(token);
-            verifier.getSubject();
+
+            String subject = verifier.getSubject();
+            System.out.println(subject);
+            if (subject == null) {
+                throw new RuntimeException("Verifier inválido: subject es nulo");
+            }
+            return subject;
+
         } catch (JWTVerificationException exception) {
-            System.out.println(exception.toString());
+            System.out.println("Error al verificar el token: " + exception.toString());
+            throw new RuntimeException("Error al verificar el token", exception);
         }
-        if (verifier.getSubject() == null) {
-            throw new RuntimeException("Verifier invalido");
-        }
-        return verifier.getSubject();
     }
+
 
     private Instant generarFechaVencimiento(){
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-05:00"));
