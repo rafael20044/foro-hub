@@ -6,11 +6,11 @@ import com.forohub.forohub.domain.topico.dto.TopicoCrear;
 import com.forohub.forohub.domain.topico.dto.TopicoEditar;
 import com.forohub.forohub.domain.topico.dto.TopicoRespuesta;
 import com.forohub.forohub.domain.topico.service.TopicoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -24,7 +24,7 @@ public class TopicaController {
     private TopicoService service;
 
     @PostMapping
-    private ResponseEntity<TopicoRespuesta> create(@RequestBody @Validated TopicoCrear crear, UriComponentsBuilder builder){
+    private ResponseEntity<TopicoRespuesta> create(@RequestBody @Valid TopicoCrear crear, UriComponentsBuilder builder){
         TopicoRespuesta respuesta = service.createTopico(crear);
         URI uri = builder.path("/topico/{id}").buildAndExpand(respuesta.id()).toUri();
         return ResponseEntity.created(uri).body(respuesta);
@@ -43,7 +43,7 @@ public class TopicaController {
     }
 
     @PutMapping
-    private ResponseEntity<TopicoRespuesta> edit(@RequestBody @Validated TopicoEditar editar){
+    private ResponseEntity<TopicoRespuesta> edit(@RequestBody @Valid TopicoEditar editar){
         TopicoRespuesta respuesta = service.editar(editar);
         return ResponseEntity.ok(respuesta);
     }

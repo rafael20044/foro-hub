@@ -18,5 +18,5 @@ public interface IUsuarioServicio {
 
     Page<UsuarioBuscar> findAll(Pageable pageable);
 
-    UserDetails findByNombre(String nombre);
+    UserDetails findByNombre(String username);
 }

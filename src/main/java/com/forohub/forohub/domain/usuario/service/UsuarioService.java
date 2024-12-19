@@ -50,7 +50,8 @@ public class UsuarioService implements IUsuarioServicio{
     }
 
     @Override
-    public UserDetails findByNombre(String nombre) {
-        return repository.buscarPorNombre(nombre).orElseThrow(()-> new FindException("No encontrado"));
+    public UserDetails findByNombre(String username) {
+        return repository.findByNombre(username);
     }
+
 }

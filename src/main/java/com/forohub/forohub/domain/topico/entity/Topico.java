@@ -34,7 +34,7 @@ public class Topico {
     @Column(nullable = true)
     private Estado estado;
 
-    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_autor")
     private Usuario idAutor;
 

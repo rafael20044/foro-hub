@@ -4,11 +4,11 @@ import com.forohub.forohub.domain.usuario.dto.UsuarioBuscar;
 import com.forohub.forohub.domain.usuario.dto.UsuarioCreate;
 import com.forohub.forohub.domain.usuario.dto.UsuarioRespuesta;
 import com.forohub.forohub.domain.usuario.service.UsuarioService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -22,7 +22,7 @@ public class UsuarioController {
     private UsuarioService service;
 
     @PostMapping
-    private ResponseEntity<UsuarioRespuesta> createUsuario(@RequestBody @Validated UsuarioCreate usuarioCreate,
+    private ResponseEntity<UsuarioRespuesta> createUsuario(@RequestBody @Valid UsuarioCreate usuarioCreate,
                                                            UriComponentsBuilder builder){
         UsuarioRespuesta respuesta = service.create(usuarioCreate);
         URI uri = builder.path("/usuario/{id}").buildAndExpand(respuesta.id()).toUri();
