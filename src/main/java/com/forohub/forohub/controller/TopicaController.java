@@ -6,6 +6,7 @@ import com.forohub.forohub.domain.topico.dto.TopicoCrear;
 import com.forohub.forohub.domain.topico.dto.TopicoEditar;
 import com.forohub.forohub.domain.topico.dto.TopicoRespuesta;
 import com.forohub.forohub.domain.topico.service.TopicoService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,6 +19,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/topico")
+@SecurityRequirement(name = "bearer-key")
 public class TopicaController {
 
     @Autowired

@@ -4,6 +4,7 @@ import com.forohub.forohub.domain.usuario.dto.UsuarioBuscar;
 import com.forohub.forohub.domain.usuario.dto.UsuarioCreate;
 import com.forohub.forohub.domain.usuario.dto.UsuarioRespuesta;
 import com.forohub.forohub.domain.usuario.service.UsuarioService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +17,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/usuario")
+@SecurityRequirement(name = "bearer-key")
 public class UsuarioController {
 
     @Autowired
