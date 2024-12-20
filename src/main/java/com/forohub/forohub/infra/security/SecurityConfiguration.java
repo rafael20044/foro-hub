@@ -8,6 +8,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -23,11 +24,15 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity security) throws Exception {
-        security.authorizeHttpRequests(auth ->
-                auth.requestMatchers(HttpMethod.POST,"/login")
-                .permitAll().anyRequest().authenticated()
-        ).csrf(csrf -> csrf.disable()).addFilterBefore(securityFilter,
-                UsernamePasswordAuthenticationFilter.class);
+        security.csrf(csrf -> csrf.disable())
+                .sessionManagement(sm ->
+                        sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth.requestMatchers(HttpMethod.POST,
+                        "/login").permitAll()
+                        .requestMatchers("/v3/api-docs/**","/swagger-ui.html","/swagger-ui/*")
+                        .permitAll()
+                        .anyRequest().authenticated())
+                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
         return security.build();
     }
 
